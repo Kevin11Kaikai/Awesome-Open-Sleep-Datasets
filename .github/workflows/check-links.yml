@@ -1,0 +1,38 @@
+name: Check links
+
+on:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  lychee:
+    name: Report broken documentation links
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check Markdown links
+        id: lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          fail: true
+          args: >-
+            --no-progress
+            --max-retries 2
+            --timeout 30
+            README.md
+            README_zh-CN.md
+            CONTRIBUTING.md
+            docs
+
+      - name: Remind reviewers that failures do not edit the catalog
+        if: always()
+        run: |
+          echo "Link failures are a report. They do not remove or rewrite datasets."
+          echo "Update a URL only after opening the primary source."

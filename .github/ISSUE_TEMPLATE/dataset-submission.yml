@@ -1,0 +1,42 @@
+name: Dataset submission
+description: Propose a sleep dataset with a primary source
+title: "Dataset: "
+labels: ["dataset"]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Official name and version
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: Official URL
+      placeholder: https://
+    validations:
+      required: true
+  - type: dropdown
+    id: tier
+    attributes:
+      label: Access tier
+      options:
+        - A
+        - B
+        - C
+        - Unverified
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: What the primary page says about download, license, subjects, and annotations
+      description: Quote the access rule and the license. Do not paste patient data.
+    validations:
+      required: true
+  - type: textarea
+    id: gap
+    attributes:
+      label: Why it is not already covered
+    validations:
+      required: true
